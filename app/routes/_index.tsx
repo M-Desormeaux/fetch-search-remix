@@ -1,4 +1,6 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
+import { Form, json, redirect, useActionData } from "@remix-run/react";
+import { BASE_URL } from "~/constants";
 
 export const meta: MetaFunction = () => {
   return [
@@ -7,42 +9,71 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+type ActionData = {
+  error?: string;
+};
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const name = formData.get("name");
+  const email = formData.get("email");
+
+  const apiEndpoint = BASE_URL + "/auth/login";
+
+  const response = await fetch(apiEndpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ name, email }),
+  });
+
+  if (!response.ok) {
+    return json({ error: "Failed to submit form data" }, { status: 500 });
+  }
+
+  const data = response.headers.getSetCookie().toString();
+
+  return redirect("/search", { headers: { "Set-Cookie": data } });
+};
+
 export default function Index() {
+  const actionData = useActionData<ActionData>();
+
   return (
-    <div className="font-sans p-4">
-      <h1 className="text-3xl">Welcome to Remix</h1>
-      <ul className="list-disc mt-4 pl-6 space-y-2">
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/quickstart"
-            rel="noreferrer"
-          >
-            5m Quick Start
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/tutorial"
-            rel="noreferrer"
-          >
-            30m Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/docs"
-            rel="noreferrer"
-          >
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+    <div>
+      <h1>Submit Your Info</h1>
+      <Form method="post">
+        <div>
+          <label>
+            Name:
+            <input
+              defaultValue="Mike"
+              type="text"
+              name="name"
+              required
+              className="border p-1 bg-gray-50"
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Email:
+            <input
+              defaultValue="mike@email.com"
+              type="email"
+              name="email"
+              required
+              className="border p-1 bg-gray-50"
+            />
+          </label>
+        </div>
+        <button type="submit" className="border p-1 bg-gray-50">
+          Submit
+        </button>
+      </Form>
+      {actionData?.error && <p style={{ color: "red" }}>{actionData.error}</p>}
     </div>
   );
 }
