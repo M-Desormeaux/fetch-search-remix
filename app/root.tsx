@@ -5,7 +5,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { MetaFunction } from "@remix-run/node";
+
+import type { MetaFunction } from "@vercel/remix";
 
 import "./tailwind.css";
 
