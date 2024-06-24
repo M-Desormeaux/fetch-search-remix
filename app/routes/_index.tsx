@@ -3,10 +3,7 @@ import { Form, json, redirect, useActionData } from "@remix-run/react";
 import { BASE_URL } from "~/constants";
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
+  return [{ title: "Doggy Dream Home | Login" }];
 };
 
 type ActionData = {
@@ -42,38 +39,47 @@ export default function Index() {
   const actionData = useActionData<ActionData>();
 
   return (
-    <div>
-      <h1>Submit Your Info</h1>
-      <Form method="post">
-        <div>
-          <label>
-            Name:
-            <input
-              defaultValue="Mike"
-              type="text"
-              name="name"
-              required
-              className="border p-1 bg-gray-50"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Email:
-            <input
-              defaultValue="mike@email.com"
-              type="email"
-              name="email"
-              required
-              className="border p-1 bg-gray-50"
-            />
-          </label>
-        </div>
-        <button type="submit" className="border p-1 bg-gray-50">
-          Submit
-        </button>
-      </Form>
-      {actionData?.error && <p style={{ color: "red" }}>{actionData.error}</p>}
+    <div className="flex min-h-lvh flex-col items-center justify-center whitespace-break-spaces">
+      <div className="flex w-fit flex-col items-center justify-end gap-3 pb-20">
+        <Form method="post" className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 rounded bg-white p-4 drop-shadow">
+            <h1 className="text-3xl">Submit Your Info</h1>
+            <div>
+              <label className="flex items-center gap-1">
+                Name:
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="And who are you?"
+                  className="rounded border bg-gray-50 p-1"
+                />
+              </label>
+            </div>
+            <div>
+              <label className="flex items-center justify-end gap-1">
+                Email:
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="arrow@knee.adventure"
+                  className="rounded border bg-gray-50 p-1"
+                />
+              </label>
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="place-content-start rounded border border-green-600 bg-green-100 px-4 py-2 text-xl font-semibold drop-shadow hover:drop-shadow-md active:drop-shadow-sm"
+          >
+            Submit
+          </button>
+        </Form>
+        {actionData?.error && (
+          <p style={{ color: "red" }}>{actionData.error}</p>
+        )}
+      </div>
     </div>
   );
 }
