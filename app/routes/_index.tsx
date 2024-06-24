@@ -36,8 +36,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   console.log("Log In Cookies", data, response);
 
+  return redirect("/search");
   // return redirect("/search", { headers: { "Set-Cookie": data } });
-  return null;
+  // return null;
 };
 
 export default function Index() {
@@ -53,6 +54,7 @@ export default function Index() {
               <label className="flex items-center gap-1">
                 Name:
                 <input
+                  defaultValue="Mike@web.site"
                   type="text"
                   name="name"
                   required
@@ -65,6 +67,7 @@ export default function Index() {
               <label className="flex items-center justify-end gap-1">
                 Email:
                 <input
+                  defaultValue="Mike@web.site"
                   type="email"
                   name="email"
                   required
