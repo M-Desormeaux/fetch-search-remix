@@ -32,13 +32,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ error: "Failed to submit form data" }, { status: 500 });
   }
 
-  const data = await response.headers.get("set-cookie");
+  const data = (await response.headers.get("set-cookie")?.toString()) ?? "";
 
   console.log("Log In Cookies", data);
 
   // return redirect("/search");
-  // return redirect("/search", { headers: { "Set-Cookie": data } });
-  return null;
+  return redirect("/search", { headers: { "Set-Cookie": data } });
 };
 
 export default function Index() {
