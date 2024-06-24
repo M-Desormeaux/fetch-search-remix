@@ -37,7 +37,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   console.log("Log In Cookies", data);
 
   // return redirect("/search");
-  return redirect("/search", { headers: { "set-cookie": data } });
+  return redirect("/", {
+    headers: { "Set-Cookie": data },
+  }).headers.append("Set-Cookie", data);
 };
 
 export default function Index() {
