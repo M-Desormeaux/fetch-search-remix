@@ -29,8 +29,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 
   const data = (await response.headers.get("set-cookie")?.toString()) ?? "";
+  const fetchToken = (await response.headers.get("fetch-access-token")) ?? "";
 
-  console.log("Log In Cookies", data);
+  console.log("Log In Cookies", fetchToken, data);
 
   return redirect("/?error=none", {
     headers: { "Set-Cookie": data },
