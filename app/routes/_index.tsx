@@ -1,12 +1,19 @@
 import { Form, json, redirect } from "@remix-run/react";
 import { BASE_URL } from "~/constants";
 
-import type { ActionFunctionArgs } from "@remix-run/node";
+import { createCookie, type ActionFunctionArgs } from "@remix-run/node";
 import type { MetaFunction } from "@vercel/remix";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Doggy Dream Home | Login" }];
 };
+
+export const fetchCookie = createCookie("fetch-access-token", {
+  maxAge: 60 * 60 * 1, // 1 hr,
+  secure: true,
+  httpOnly: true,
+  sameSite: "none",
+});
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -28,14 +35,22 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ error: "Failed to submit form data" }, { status: 500 });
   }
 
-  const data = (await response.headers.get("set-cookie")) ?? "";
-  const fetchToken =
-    (await response.headers.get("fetch-access-token")) ?? "token fail";
+  const data = response.headers.get("set-cookie") ?? "";
+  const targetCookie =
+    data.split(";").filter((str) => str.includes("fetch-access-token="))[0] ??
+    "";
+  const cookieValue = targetCookie?.split("=")[1];
 
-  console.log("Log In Cookies", fetchToken, data, data?.length);
+  const setCookie = await fetchCookie.serialize(cookieValue);
+
+  console.log("Log In Cookies", {
+    cookieValue,
+    cookie: setCookie,
+    cookies: response.headers.get("set-cookie"),
+  });
 
   return redirect("/?error=none", {
-    headers: { "Set-Cookie": data },
+    headers: { "Set-Cookie": setCookie },
   });
 };
 

@@ -81,7 +81,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      // Cookie: cookies?.toString() || "",
+      Cookie: cookies?.toString() || "",
     },
     credentials: "include",
   });
@@ -136,7 +136,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      // Cookie: cookies?.toString() || "",
+      Cookie: cookies?.toString() || "",
     },
     credentials: "include",
   });
@@ -165,7 +165,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      // Cookie: cookies?.toString() || "",
+      Cookie: cookies?.toString() || "",
     },
     credentials: "include",
     body: JSON.stringify(searchResults),
