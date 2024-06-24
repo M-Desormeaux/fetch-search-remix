@@ -1,4 +1,4 @@
-import { Form, json, redirect, useActionData } from "@remix-run/react";
+import { Form, json, redirect } from "@remix-run/react";
 import { BASE_URL } from "~/constants";
 
 import type { ActionFunctionArgs } from "@remix-run/node";
@@ -6,10 +6,6 @@ import type { MetaFunction } from "@vercel/remix";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Doggy Dream Home | Login" }];
-};
-
-type ActionData = {
-  error?: string;
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -43,8 +39,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function Index() {
-  const actionData = useActionData<ActionData>();
-
   return (
     <div className="flex min-h-lvh flex-col items-center justify-center whitespace-break-spaces">
       <div className="flex w-fit flex-col items-center justify-end gap-3 pb-20">
@@ -85,9 +79,6 @@ export default function Index() {
             Submit
           </button>
         </Form>
-        {actionData?.error && (
-          <p style={{ color: "red" }}>{actionData.error}</p>
-        )}
       </div>
     </div>
   );
