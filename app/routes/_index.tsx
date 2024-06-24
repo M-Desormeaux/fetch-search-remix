@@ -34,7 +34,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     "";
   const cookieValue = targetCookie?.split("=")[1];
 
-  return redirect("/?error=none", {
+  return redirect("/search", {
     headers: { "Set-Cookie": `fetch-access-token=${cookieValue}` },
   });
 };
