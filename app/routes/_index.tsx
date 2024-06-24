@@ -32,7 +32,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   console.log("Log In Cookies", data);
 
-  return redirect("/error=none", {
+  return redirect("/?error=none", {
     headers: { "Set-Cookie": data },
   });
 };
