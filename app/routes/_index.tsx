@@ -34,6 +34,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const data = response.headers.getSetCookie().toString();
 
+  console.log("Log In Cookies", data);
+
   return redirect("/search", { headers: { "Set-Cookie": data } });
 };
 
