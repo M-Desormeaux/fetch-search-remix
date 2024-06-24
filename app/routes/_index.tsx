@@ -1,19 +1,12 @@
 import { Form, json, redirect } from "@remix-run/react";
 import { BASE_URL } from "~/constants";
 
-import { createCookie, type ActionFunctionArgs } from "@remix-run/node";
+import { type ActionFunctionArgs } from "@remix-run/node";
 import type { MetaFunction } from "@vercel/remix";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Doggy Dream Home | Login" }];
 };
-
-export const fetchCookie = createCookie("fetch-access-token", {
-  maxAge: 60 * 60 * 1, // 1 hr,
-  secure: true,
-  httpOnly: true,
-  sameSite: "none",
-});
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -41,16 +34,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     "";
   const cookieValue = targetCookie?.split("=")[1];
 
-  const setCookie = await fetchCookie.serialize(cookieValue);
-
-  console.log("Log In Cookies", {
-    cookieValue,
-    cookie: setCookie,
-    cookies: response.headers.get("set-cookie"),
-  });
-
-  return redirect("/search", {
-    headers: { "Set-Cookie": setCookie },
+  return redirect("/?error=none", {
+    headers: { "Set-Cookie": `fetch-access-token=${cookieValue}` },
   });
 };
 

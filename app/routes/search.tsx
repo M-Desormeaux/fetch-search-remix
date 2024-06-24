@@ -72,7 +72,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const cookies = request.headers.get("Cookie")?.toString() || "";
 
-  // console.log("search cookies", cookies);
+  console.log("search cookies", cookies);
 
   // #region Breeds API
   const breedsApiEndpoint = BASE_URL + "/dogs/breeds";
