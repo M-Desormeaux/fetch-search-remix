@@ -50,7 +50,7 @@ export default function Index() {
               <label className="flex items-center gap-1">
                 Name:
                 <input
-                  defaultValue="Mike@web.site"
+                  // defaultValue="Mike@web.site"
                   type="text"
                   name="name"
                   required
@@ -63,7 +63,7 @@ export default function Index() {
               <label className="flex items-center justify-end gap-1">
                 Email:
                 <input
-                  defaultValue="Mike@web.site"
+                  // defaultValue="Mike@web.site"
                   type="email"
                   name="email"
                   required
