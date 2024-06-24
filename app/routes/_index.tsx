@@ -1,6 +1,8 @@
-import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Form, json, redirect, useActionData } from "@remix-run/react";
 import { BASE_URL } from "~/constants";
+
+import type { ActionFunctionArgs } from "@remix-run/node";
+import type { MetaFunction } from "@vercel/remix";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Doggy Dream Home | Login" }];

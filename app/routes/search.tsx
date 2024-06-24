@@ -1,13 +1,8 @@
-// app/routes/breeds.tsx
-
-import {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-  MetaFunction,
-  json,
-} from "@remix-run/node";
+import { ActionFunctionArgs, LoaderFunctionArgs, json } from "@remix-run/node";
 import { Form, Link, redirect, useLoaderData } from "@remix-run/react";
 import { BASE_URL } from "~/constants";
+
+import type { MetaFunction } from "@vercel/remix";
 
 // Define the response type
 type BreedResponse = string[];
