@@ -5,7 +5,23 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { MetaFunction } from "@remix-run/node";
+
 import "./tailwind.css";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Doggy Dream Home" },
+    {
+      property: "og:title",
+      content: "Doggy Dream Home",
+    },
+    {
+      name: "description",
+      content: "A place for dogs to find their furever owners.",
+    },
+  ];
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <div className="mx-auto max-w-7xl">{children}</div>
         <ScrollRestoration />
         <Scripts />
       </body>
