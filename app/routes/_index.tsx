@@ -28,10 +28,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ error: "Failed to submit form data" }, { status: 500 });
   }
 
-  const data = (await response.headers.get("set-cookie")?.toString()) ?? "";
-  const fetchToken = (await response.headers.get("fetch-access-token")) ?? "";
+  const data = (await response.headers.get("set-cookie")) ?? "";
+  const fetchToken =
+    (await response.headers.get("fetch-access-token")) ?? "token fail";
 
-  console.log("Log In Cookies", fetchToken, data);
+  console.log("Log In Cookies", fetchToken, data, data?.length);
 
   return redirect("/?error=none", {
     headers: { "Set-Cookie": data },
