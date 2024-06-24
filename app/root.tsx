@@ -5,6 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { Analytics } from "@vercel/analytics/react";
 
 import type { MetaFunction } from "@vercel/remix";
 
@@ -37,6 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="mx-auto max-w-7xl">{children}</div>
         <ScrollRestoration />
         <Scripts />
+        <Analytics />
       </body>
     </html>
   );
