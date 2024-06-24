@@ -49,7 +49,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     cookies: response.headers.get("set-cookie"),
   });
 
-  return redirect("/?error=none", {
+  return redirect("/search", {
     headers: { "Set-Cookie": setCookie },
   });
 };
